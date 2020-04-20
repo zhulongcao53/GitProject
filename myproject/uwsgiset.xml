@@ -1,0 +1,9 @@
+<uwsgi>
+    <socket>0.0.0.0:8000</socket><!-- 内部端口，自定义 -->
+    <chdir>/root/myproject/</chdir><!-- 项目目录 -->
+    <module>myproject.wsgi</module><!-- wsgi 启动文件 -->
+    <processes>4</processes> <!-- 进程数 -->
+    <daemonize>uwsgi.log</daemonize><!-- 日志文件路径 -->
+    <pidfile>uwsgi.pid</pidfile><!-- uwsgi 管理文件路径，用来重启 uwsgi -->
+</uwsgi>
+

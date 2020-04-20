@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则测试工具</title>
+    <style>
+        a {
+            color: #666666;
+            text-decoration: none;
+        }
+        a:hover, a:active {
+            color: #00AAEE;
+            text-decoration: none;
+        }
+        ul{
+            margin: 0;
+            padding: 15px 10px;
+        }
+        li{
+            list-style:none
+        }
+        #regexp{
+            width: 900px;
+            margin: 100px auto;
+            font-size: 14px;
+        }
+        #regexp .title{
+            text-align: center;
+            color: #777777;
+            font-size: 24px;
+        }
+        #regexp .textbox{
+            width: 100%;
+            /*width: 638px;*/
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        #regexp .textfield{
+            box-sizing: border-box;
+            width: 215px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+        .workResult{
+            width: 100%;
+            height: 280px;
+            /*background: #00CC66;*/
+        }
+        .workResult_left{
+            float: left;
+            box-sizing: border-box;
+            width: 50%;
+            height: 100%;
+            padding: 30px 0;
+            font-size: 18px;
+            color: #00CC66;
+        }
+        .workResult_right{
+            float: right;
+            box-sizing: border-box;
+            width: 50%;
+            height: 100%;
+            padding: 30px 0;
+            font-size: 18px;
+            color: #00CC66;
+        }
+        .module_left{
+            float: left;
+        }
+        .module_right{
+            text-align: right;
+        }
+        .module_right > div{
+            display: inline-block;
+        }
+        .monitoring{
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="regexp">
+    <h1 class="title">正则表达式测试工具</h1>
+    <textarea id="userText" class="textbox" placeholder="在此输入带匹配文本"></textarea>
+    <p>
+        正则表达式：<input type="text" id="userRegExp" class="textfield" placeholder="输入正则表达式"/>
+        <input type="checkbox" name="userModifier" value="i"/> 忽略大小写
+        <input type="checkbox" name="userModifier" value="g"/> 全局匹配
+        <input type="checkbox" name="userModifier" value="m"/> 多行匹配
+        <input type="checkbox" name="userModifier" value="s"/> 单行匹配
+        <input type="button" id="matchingBtn" value="测试匹配" />
+        <input type="button" id="wordBtn" value="工作匹配" />
+    </p>
+    <p>匹配结果：</p>
+    <textarea id="matchingResult" class="textbox" disabled="disabled"></textarea>
+    <div class="workResult">
+         <div class="workResult_left">
+             <ul>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+                 <li></li>
+             </ul>
+         </div>
+
+        <div class="workResult_right">
+            <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    let userText = document.getElementById('userText'),
+        userRegExp = document.getElementById('userRegExp'),
+        userModifier = document.getElementsByName('userModifier'),
+        matchingBtn = document.getElementById('matchingBtn'),
+        matchingResult = document.getElementById('matchingResult'),
+        wordBtn = document.getElementById('wordBtn');
+
+    let pattern;
+
+    matchingBtn.onclick = function () {
+        let  modifier = '';
+
+        for (let i=0;i<userModifier.length;i++){
+            if (userModifier[i].checked === true){
+                modifier += userModifier[i].value;
+            }
+        }
+        pattern =  new RegExp(userRegExp.value, modifier);
+        matchingResult.value = pattern.exec(userText.value) || ('没有匹配');
+        console.log(pattern.exec(userText.value));
+    };
+
+
+    wordBtn.onclick = function () {
+        let modifierInfo = /([0-9a-z]+)\n([a-z]+)\n(\d).*?}/gis,
+             modifier = /([a-z0-9]+?)\n([a-z]+?)\n.*?OK.*?\/\/(.*?)"/is,
+             matchingValue = userText.value,
+             matchingArray = matchingValue.match(modifierInfo);
+            console.log(matchingArray);
+        let modifierleft_li = document.querySelectorAll(".workResult_left li"),
+            modifierright_li = document.querySelectorAll(".workResult_right li");
+
+        let date = new Date();
+        let beg = Math.floor(date.getTime()/1000)-1800,
+        end = beg + 2400,
+        diff_day = 7,
+        time_span=0.5,
+        tpl='call',
+        db_flag=-1,
+        fastdb=0,
+        granularity=10;
+
+
+        // console.log(matchingArray);
+        if (matchingArray){
+            for (let i=0; i<matchingArray.length; i++){
+                let matchingInFO = modifier.exec(matchingArray[i]);
+                if(!matchingInFO){
+                    continue;
+                }
+                console.log(matchingInFO);
+                let num = i%8;
+                monitoringurl = 'https://wego.weixin.oa.com/wego/wemodulechainweb/page?beg=' + beg + '&granularity=' + granularity + '&fastdb=' + fastdb + '&db_flag=' + db_flag + '&end=' + end + '&diff_day=' + diff_day + '&time_span' + time_span + '&tpl=' + tpl +'&forceIdc=' + matchingInFO[2] + '&str=' + matchingInFO[1];
+
+                if (i>7){
+                    modifierright_li[num].innerHTML='<span class="module_left">' + matchingInFO[1] + '</span>' +
+                        '<div class="module_right">' +
+                        '<div class="monitoring"><a href="' + monitoringurl + '" target="_blank">监控</a></div>' +
+                        '<div class="dilatation"><a href="'+ 'https://' + matchingInFO[3] +'" target="_blank">扩容单</a></div>' +
+                        '</div>';
+                    continue;
+                }
+
+                modifierleft_li[num].innerHTML='<span class="module_left">' + matchingInFO[1] + '</span>' +
+                                             '<div class="module_right">' +
+                                             '<div class="monitoring"><a href="' + monitoringurl + '" target="_blank">监控</a></div>' +
+                                             '<div class="dilatation"><a href="'+ 'https://' + matchingInFO[3] +'" target="_blank">扩容单</a></div>' +
+                                             '</div>';
+
+            }
+        } else {
+            matchingResult.value = '没有匹配';
+        }
+        console.log(matchingArray.length);
+    }
+</script>
+</body>
+</html>

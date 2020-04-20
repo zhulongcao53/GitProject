@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBlog</title>
+</head>
+<body>
+<h3>网站名：{{ sitename }}</h3>
+<h3>域名：{{ url }}</h3>
+{#新下面的代码#}
+<div>
+    <ul>
+    <h4>目录：</h4>
+        {% for list in list  %}
+        <li>{{ list }}</li>
+        {% endfor %}
+    </ul>
+</div>
+<form action="QxRoBot" method="get">
+	和机器人聊天: <input type="text" name="RobotMessage" />
+	<input type="submit" value="提交" />
+       {% csrf_token %}
+
+</form>
+<p>{{ RobotResult }}</p>
+
+</body>
+</html>
