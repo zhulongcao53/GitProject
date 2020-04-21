@@ -27,6 +27,6 @@ urlpatterns = [
     url(r'^$', view.index),
     url(r'QxRoBot', view.QxRoBot),
     url(r'^Reshtml',view.Reshtml),
-    #path('admin/', admin.site.urls),
+    url(r'admin/', admin.site.urls),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
