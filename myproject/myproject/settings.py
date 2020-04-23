@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'adminlteui',
     #'django_adminlte',
     #'django_adminlte_theme',
+    'myblog.apps.MyblogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,7 +91,11 @@ DATABASES = {
         'HOST': '127.0.0.1',  # 数据库地址                 
         'PORT': '3306', # 端口号                       
         'USER': 'root', # 数据库用户名                      
-        'PASSWORD': 'MyQxx@#53', 
+        'PASSWORD': 'MyQxx@#53',
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"',
+            'charset': 'utf8mb4'
+         } 
     }
 }
 
@@ -127,7 +132,7 @@ LANGUAGE_CODE = 'zh-Hans'
 
 #LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
