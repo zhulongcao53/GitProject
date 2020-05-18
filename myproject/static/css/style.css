@@ -1159,10 +1159,10 @@ textarea.form-control {
 .footer-section {
     display: block;
     width: 100%;
-    background: #000;
-    padding: 50px 0;
+    background: #FFFFFF;
+    padding: 3px 0;
     text-align: center;
-    color: #fff;
+    color: #000000;
 }
 .footer-section .row{
     display: block !important;

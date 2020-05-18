@@ -24,6 +24,7 @@ class MenulistAdmin(admin.ModelAdmin):
     date_hierarchy = 'Timestamp'
     ordering = ('-Timestamp',)
 
+
 class Blog(models.Model):  
     Title = models.CharField(u'标题', max_length = 150)  
     Content = models.CharField(u'内容', max_length = 2000)
@@ -46,5 +47,48 @@ class BlogAdmin(admin.ModelAdmin):
     ordering = ('-Timestamp',)
 
 
+class Photo(models.Model):
+    Title = models.CharField(u'标题', max_length = 150)
+    Images = models.ImageField(u'图片', upload_to='images')
+    Category = models.ForeignKey('PhotoType', on_delete=models.CASCADE)
+    Timestamp = models.DateTimeField(u'时间')
+
+    class Meta:
+        ordering =('-Timestamp',)   #以最新时间显示
+        verbose_name = u'图片分享'
+        verbose_name_plural = u'图片分享'
+
+    def __str__(self):
+        return u'%s %s %s' % (self.Title, self.Images, self.Timestamp)
+
+class PhotoAdmin(admin.ModelAdmin):
+    list_display = ( 'Title', 'Images', 'Category', 'Timestamp')  #后台blog栏目显示内容
+    list_filter = ('Timestamp',)        # 过滤器
+    search_fields = ('Title', 'Images', 'Category') #快速查询栏
+    date_hierarchy = 'Timestamp'
+    ordering = ('-Timestamp',)
+
+class PhotoType(models.Model):
+    Category = models.CharField(u'标签', max_length = 50, blank = True)
+    Timestamp = models.DateTimeField(u'时间')
+
+    class Meta:
+        ordering =('-Timestamp',)   #以最新时间显示
+        verbose_name = u'图片标签'
+        verbose_name_plural = u'图片标签'
+
+    def __str__(self):
+        return u'%s' % (self.Category)
+
+class PhotoTypeAdmin(admin.ModelAdmin):
+    list_display = ( 'Category', 'Timestamp')  #后台blog栏目显示内容
+    list_filter = ('Timestamp',)        # 过滤器
+    date_hierarchy = 'Timestamp'
+    ordering = ('-Timestamp',)
+
+
+
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(Photo, PhotoAdmin)
+admin.site.register(PhotoType, PhotoTypeAdmin)
 admin.site.register(Menulist,MenulistAdmin)  

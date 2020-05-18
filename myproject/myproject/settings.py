@@ -151,3 +151,5 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
     '/root/myproject/static/',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'static/media')
