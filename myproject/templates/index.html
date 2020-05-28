@@ -109,13 +109,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="about-item">
+							{% for Aboutlist in AboutMe %}
                             <div class="row">
                                 <div class="col-sm-6 wow fadeInDown animated" data-wow-delay="0.2s">
                                     <div class="section-title">
                                         <h3>关于我 </h3>
                                     </div>
                                     <div class="about-content">
-                                        <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nullam ullamcorper quam leo. Aenean sodales, id eleifend massa posuere sed. Phasellus feugiat at orci vel rhoncus. Ut malesuada magna sed arcu finibus auctor ut a turpis. Sed vulputate ullamcorper nisi, non egestas enim ut. Praesent vel pellentesque Suspendisse tincidunt, et condimentum condimentum, nisi lectus rutrum enim, vulputate luctus nulla turpis id magna. Pellentesque at elit ut lacus viverra sollicitudin ut ac mi. Pellentesque mollis faucibus aliquam.</p>
+                                        <p>{{ Aboutlist.Introduce }}</p>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 wow fadeInDown animated" data-wow-delay="0.2s">
@@ -123,53 +124,13 @@
                                         <h3>个人信息</h3>
                                     </div>
                                     <div class="personal-info-content">
-                                        <p><b>Name</b> <span>Carlos Smith </span></p>
-                                        <p><b>Birthday</b> <span>1982.04.09 (year/day/month) </span></p>
-                                        <p><b>Place of Birth</b> <span>Sydney</span></p>
-                                        <p><b>Nationality</b> <span>Australian</span></p>
-                                        <p><b>Marital Status</b> <span>Single</span></p>
-                                        <p><b>Freelance</b> <span>Available</span></p>
-                                        <p><b>Vacation</b> <span>Till April 25, 2016</span></p>
+                                        <p><b>姓名</b> <span>{{ Aboutlist.AboutName }}</span></p>
+                                        <p><b>出生日期</b> <span>{{ Aboutlist.Birthday }}</span></p>
+                                        <p><b>国籍</b> <span>{{ Aboutlist.Nationality }}</span></p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row personal-area">
-                                <div class="col-md-12">
-                                    <div class="section-title center">
-                                        <h3>照片墙</h3>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="#">
-                                        <img src="/static/images/instragram/instragram1.jpg" class="img-responsive" width="190" height="190" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="#">
-                                        <img src="/static/images/instragram/instragram2.jpg" class="img-responsive" width="190" height="190" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="#">
-                                        <img src="/static/images/instragram/instragram3.jpg" class="img-responsive" width="190" height="190" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="#">
-                                        <img src="/static/images/instragram/instragram4.jpg" class="img-responsive" width="190" height="190" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="#">
-                                        <img src="/static/images/instragram/instragram5.jpg" class="img-responsive" width="190" height="190" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a href="#">
-                                        <img src="/static/images/instragram/instragram6.jpg" class="img-responsive" width="190" height="190" alt="">
-                                    </a>
-                                </div>
-                            </div>
+							{% endfor %}
                         </div>
                     </div>
                 </div>
@@ -287,35 +248,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="section-title center">
-                            <h3>service</h3>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="service-items">
-                            <i class="fa fa-support"></i>
-                            <h4>Great Support</h4>
-                            <p>Lorem ipsum Minim labore Ut cupidatat quis qui deserunt proident fugiat pariatur cillum cupidatat derit sit id dolor consectetur ut</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="service-items">
-                            <i class="fa fa-desktop"></i>
-                            <h4>Graphics  design</h4>
-                            <p>Lorem ipsum Minim labore Ut cupidatat quis qui deserunt proident fugiat pariatur cillum cupidatat derit sit id dolor consectetur ut</p>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="service-items">
-                            <i class="fa fa-code"></i>
-                            <h4>Web Design</h4>
-                            <p>Lorem ipsum Minim labore Ut cupidatat quis qui deserunt proident fugiat pariatur cillum cupidatat derit sit id dolor consectetur ut</p>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -341,8 +273,8 @@
                 <div class="row work">
 				{% for Photolist in Photo %}
                     <div class="work-item {{ Photolist.Category }} col-sm-3 ">
-                        <a href="/static/media/{{ Photolist.Images }}" data-gal="prettyPhoto[gallery2]">
-                            <img src="/static/media/{{ Photolist.Images }}" class="img-responsive" width="265" height="165" alt="">
+                        <a href="/static/media/{{ Photolist.avatar_thumbnail.url }}" data-gal="prettyPhoto[gallery2]">
+                            <img src="/static/media/{{ Photolist.avatar_thumbnail.url }}" class="img-responsive" width="265" height="165" alt="">
                         </a>
                     </div>
 				{% endfor %}
